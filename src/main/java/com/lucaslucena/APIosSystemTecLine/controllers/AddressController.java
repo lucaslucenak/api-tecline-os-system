@@ -2,6 +2,7 @@ package com.lucaslucena.APIosSystemTecLine.controllers;
 
 import com.lucaslucena.APIosSystemTecLine.models.AddressModel;
 import com.lucaslucena.APIosSystemTecLine.services.AddressService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,9 +14,11 @@ import java.util.List;
 public class AddressController {
 
     final AddressService addressService;
+    final ModelMapper modelMapper;
 
-    public AddressController(AddressService addressService) {
+    public AddressController(AddressService addressService, ModelMapper modelMapper) {
         this.addressService = addressService;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping
@@ -42,6 +45,17 @@ public class AddressController {
         addressService.findAddressById(id)
                 .map(address -> {
                     addressService.deleteAddressById(address.getId());
+                    return Void.TYPE;
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateAddress(@PathVariable("id") Long id, @RequestBody AddressModel newAddress) {
+        addressService.findAddressById(id)
+                .map(address -> {
+                    modelMapper.map(newAddress, address);
+                    addressService.saveAddress(address);
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
     }
