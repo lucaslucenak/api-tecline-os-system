@@ -6,22 +6,21 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity(name = "tb_os")
 @Getter
 @Setter
-public class Os {
+public class OsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    private Client client;
+    private ClientModel client;
 
     @OneToOne
-    private Technician technician;
+    private TechnicianModel technician;
 
     @Column
     private Double estimated_value;

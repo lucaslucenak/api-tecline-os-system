@@ -5,22 +5,31 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.UUID;
-@Entity(name = "tb_technician")
+
+@Entity(name = "tb_address")
 @Getter
 @Setter
-public class Technician {
+public class AddressModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String name;
+    private String street;
 
     @Column
-    private String cpf;
+    private String number;
 
-    @OneToOne
-    @JoinColumn(name = "id_address")
-    private Address address;
+    @Column
+    private String cep;
+
+    @Column
+    private String Neighborhood;
+
+    @Column
+    private String city;
+
+    @Column
+    private String complement;
 }
