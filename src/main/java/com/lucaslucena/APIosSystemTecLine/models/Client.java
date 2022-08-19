@@ -1,9 +1,6 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.UUID;
 
 public class Client {
@@ -11,6 +8,12 @@ public class Client {
     @Id
     @GeneratedValue
     private UUID id;
+
+    @Column
+    private String name;
+
+    @Column
+    private String cpf;
 
     @OneToOne
     @JoinColumn(name = "id_address")

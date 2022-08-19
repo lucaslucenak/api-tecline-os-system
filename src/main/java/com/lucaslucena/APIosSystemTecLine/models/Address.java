@@ -1,9 +1,6 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.UUID;
 
 public class Address {
@@ -12,6 +9,24 @@ public class Address {
     @GeneratedValue
     private UUID id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_address")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
     private Client owner;
+
+    @Column
+    private String street;
+
+    @Column
+    private String number;
+
+    @Column
+    private String cep;
+
+    @Column
+    private String Neighborhood;
+
+    @Column
+    private String city;
+
+    @Column
+    private String complement;
 }
