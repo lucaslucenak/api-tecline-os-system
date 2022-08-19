@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/address")
 public class AddressController {
@@ -26,5 +28,21 @@ public class AddressController {
     public AddressModel findAddressById(@PathVariable("id") Long id) {
         return addressService.findAddressById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<AddressModel> findAllAddress() {
+        return addressService.findAllAddresses();
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAddressById(@PathVariable("id") Long id) {
+        addressService.findAddressById(id)
+                .map(address -> {
+                    addressService.deleteAddressById(address.getId());
+                    return Void.TYPE;
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
     }
 }
