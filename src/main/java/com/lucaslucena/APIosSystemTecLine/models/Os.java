@@ -14,8 +14,8 @@ import java.util.UUID;
 public class Os {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne
     private Client client;
@@ -43,7 +43,7 @@ public class Os {
     private LocalDate finished_date;
 
     @Column
-    private final LocalDate pickup_limit_date = finished_date.plusDays(15);
+    private LocalDate pickup_limit_date;
 
     @Column
     private String observation;
