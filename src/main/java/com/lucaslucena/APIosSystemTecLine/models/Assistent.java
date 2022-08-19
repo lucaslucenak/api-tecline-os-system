@@ -1,0 +1,14 @@
+package com.lucaslucena.APIosSystemTecLine.models;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.util.UUID;
+
+public class Assistent {
+
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+
+}
