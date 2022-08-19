@@ -1,12 +1,16 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
 import com.lucaslucena.APIosSystemTecLine.enumns.PaymentMethod;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity(name = "tb_os")
+@Getter
+@Setter
 public class Os {
 
     @Id
@@ -17,7 +21,7 @@ public class Os {
     private Client client;
 
     @OneToOne
-    private Assistent assistent;
+    private Technician technician;
 
     @Column
     private Double estimated_value;

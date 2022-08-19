@@ -1,9 +1,14 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.UUID;
-
-public class Assistent {
+@Entity(name = "tb_technician")
+@Getter
+@Setter
+public class Technician {
 
     @Id
     @GeneratedValue
