@@ -25,7 +25,7 @@ public class AddressModel {
     private String cep;
 
     @Column
-    private String Neighborhood;
+    private String neighborhood;
 
     @Column
     private String city;
