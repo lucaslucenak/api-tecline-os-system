@@ -35,7 +35,6 @@ public class ClientController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<ClientModel> findAllClients() {
         return clientService.findAllClients();
     }
@@ -60,5 +59,6 @@ public class ClientController {
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
+
 
 }
