@@ -24,10 +24,10 @@ public class RoleModel implements Serializable, GrantedAuthority {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private RoleEnum roleName;
+    private RoleEnum role_name;
 
     @Override
     public String getAuthority() {
-        return roleName.toString();
+        return role_name.toString();
     }
 }
