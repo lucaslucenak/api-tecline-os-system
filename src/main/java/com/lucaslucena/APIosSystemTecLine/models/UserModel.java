@@ -1,12 +1,12 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
+import com.lucaslucena.APIosSystemTecLine.enumns.RoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 public class UserModel implements UserDetails, Serializable {
 
-    @Serial
     private static final Long serialVersionUID = 1L;
 
     @Id
@@ -35,6 +34,10 @@ public class UserModel implements UserDetails, Serializable {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private List<RoleModel> roles;
+
+    public void addRole(RoleEnum roleEnum) {
+        roles.add(new RoleModel(roleEnum));
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

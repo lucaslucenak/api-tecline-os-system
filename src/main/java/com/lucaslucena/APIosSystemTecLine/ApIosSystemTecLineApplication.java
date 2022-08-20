@@ -18,7 +18,7 @@ public class ApIosSystemTecLineApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApIosSystemTecLineApplication.class, args);
-		System.out.println(new BCryptPasswordEncoder().encode(""));
+		System.out.println(new BCryptPasswordEncoder().encode("admin"));
 	}
 
 }

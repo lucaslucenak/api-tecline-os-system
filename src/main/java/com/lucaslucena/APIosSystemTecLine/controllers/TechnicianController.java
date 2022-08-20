@@ -4,6 +4,7 @@ import com.lucaslucena.APIosSystemTecLine.models.TechnicianModel;
 import com.lucaslucena.APIosSystemTecLine.services.TechnicianService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,23 +24,27 @@ public class TechnicianController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public TechnicianModel saveTechnician(@RequestBody TechnicianModel technician) {
         return technicianService.saveTechnician(technician);
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public TechnicianModel findTechnicianById(@PathVariable("id") Long id) {
         return technicianService.findTechnicianById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Technician not found"));
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<TechnicianModel> findAllTechnicians() {
         return technicianService.findAllTechnicians();
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteTechnicianById(@PathVariable("id") Long id) {
         technicianService.findTechnicianById(id)
                 .map(technician -> {
@@ -50,6 +55,7 @@ public class TechnicianController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateTechnician(@PathVariable("id") Long id, @RequestBody TechnicianModel newTechnician) {
         technicianService.findTechnicianById(id)
                 .map(technician -> {

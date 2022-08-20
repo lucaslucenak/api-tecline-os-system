@@ -18,6 +18,13 @@ public class RoleModel implements Serializable, GrantedAuthority {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    public RoleModel(RoleEnum role_name) {
+        this.role_name = role_name;
+    }
+
+    public RoleModel() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +32,8 @@ public class RoleModel implements Serializable, GrantedAuthority {
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
     private RoleEnum role_name;
+
+
 
     @Override
     public String getAuthority() {
