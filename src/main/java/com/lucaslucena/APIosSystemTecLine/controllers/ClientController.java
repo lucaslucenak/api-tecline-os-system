@@ -2,6 +2,7 @@ package com.lucaslucena.APIosSystemTecLine.controllers;
 
 import com.lucaslucena.APIosSystemTecLine.models.ClientModel;
 import com.lucaslucena.APIosSystemTecLine.services.ClientService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,9 +15,11 @@ import java.util.Optional;
 public class ClientController {
 
     final ClientService clientService;
+    final ModelMapper modelMapper;
 
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, ModelMapper modelMapper) {
         this.clientService = clientService;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping
@@ -43,6 +46,17 @@ public class ClientController {
         clientService.findClientById(id)
                 .map(client -> {
                     clientService.deleteClientById(client.getId());
+                    return Void.TYPE;
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
+    }
+
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateClient(@PathVariable("id") Long id, @RequestBody ClientModel newClient) {
+        clientService.findClientById(id)
+                .map(client -> {
+                    modelMapper.map(newClient, client);
+                    clientService.saveClient(client);
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
