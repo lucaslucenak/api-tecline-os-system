@@ -1,4 +1,4 @@
-package com.lucaslucena.APIosSystemTecLine.enumns;
+package com.lucaslucena.APIosSystemTecLine.enums;
 
 public enum RoleEnum {
     ADMIN,

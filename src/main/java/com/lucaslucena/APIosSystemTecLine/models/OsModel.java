@@ -1,6 +1,6 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
-import com.lucaslucena.APIosSystemTecLine.enumns.PaymentMethod;
+import com.lucaslucena.APIosSystemTecLine.enums.PaymentMethod;
 import lombok.Getter;
 import lombok.Setter;
 

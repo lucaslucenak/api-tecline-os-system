@@ -20,6 +20,9 @@ public class ClientModel {
     @Column
     private String cpf;
 
+    @Column
+    private String email;
+
     @OneToOne
     @JoinColumn(name = "id_address")
     private AddressModel address;

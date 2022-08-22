@@ -1,14 +1,12 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
-import com.lucaslucena.APIosSystemTecLine.enumns.RoleEnum;
+import com.lucaslucena.APIosSystemTecLine.enums.RoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
