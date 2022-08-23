@@ -20,6 +20,12 @@ public class TechnicianModel {
     @Column
     private String cpf;
 
+    @Column
+    private String phone_number;
+
+    @Column
+    private String email;
+
     @OneToOne
     @JoinColumn(name = "id_address")
     private AddressModel address;

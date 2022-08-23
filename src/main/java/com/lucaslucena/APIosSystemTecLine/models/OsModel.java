@@ -25,11 +25,14 @@ public class OsModel {
     private TechnicianModel technician;
 
     @Column
+    private String equipment;
+
+    @Column
     private Double estimated_value;
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private PaymentMethod paymentMethod;
+    private PaymentMethod payment_method;
 
     @Column
     private Integer installments;
