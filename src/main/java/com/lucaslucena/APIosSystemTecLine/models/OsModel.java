@@ -17,9 +17,11 @@ public class OsModel {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "id_client")
     private ClientModel client;
 
     @OneToOne
+    @JoinColumn(name = "id_technician")
     private TechnicianModel technician;
 
     @Column

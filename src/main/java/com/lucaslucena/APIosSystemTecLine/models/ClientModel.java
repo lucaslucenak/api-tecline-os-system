@@ -22,6 +22,9 @@ public class ClientModel extends RepresentationModel<ClientModel> {
     private String cpf;
 
     @Column
+    private Integer phone_number;
+
+    @Column
     private String email;
 
     @OneToOne

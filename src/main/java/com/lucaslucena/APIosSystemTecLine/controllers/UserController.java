@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserModel createUser(@RequestBody UserModel user) {
-        user.addRole(new RoleModel(3L, "CLIENT"));
+//        user.addRole(new RoleModel(3L, "CLIENT"));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userService.saveUser(user);
     }
