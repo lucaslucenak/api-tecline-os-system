@@ -3,17 +3,21 @@ package com.lucaslucena.APIosSystemTecLine.models;
 import com.lucaslucena.APIosSystemTecLine.enums.RoleEnum;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "tb_user")
 @Getter
 @Setter
-public class UserModel /*implements UserDetails, Serializable*/ {
+public class UserModel implements UserDetails, Serializable {
 
     private static final Long serialVersionUID = 1L;
 
@@ -33,32 +37,32 @@ public class UserModel /*implements UserDetails, Serializable*/ {
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private List<RoleModel> roles;
 
-    public void addRole(RoleEnum roleEnum) {
-        roles.add(new RoleModel(roleEnum));
+    public void addRole(RoleModel roleModel) {
+        roles.add(roleModel);
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roles;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

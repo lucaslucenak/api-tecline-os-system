@@ -6,6 +6,7 @@ import com.lucaslucena.APIosSystemTecLine.services.OsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,27 +26,27 @@ public class OsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public OsModel saveOs(@RequestBody OsModel os) {
         return osService.saveOs(os);
     }
 
     @GetMapping("{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public OsModel findOsById(@PathVariable("id") Long id) {
         return osService.findOsById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "OS not found"));
     }
 
     @GetMapping
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<OsModel> findAllOs() {
         return osService.findAllOs();
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteOsById(@PathVariable("id") Long id) {
         osService.findOsById(id)
                 .map(os -> {
@@ -56,7 +57,7 @@ public class OsController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateOs(@PathVariable("id") Long id, @RequestBody OsModel newOs) {
         osService.findOsById(id)
                 .map(os -> {
