@@ -31,4 +31,11 @@ public class ClientService {
     public void deleteClientById(Long id) {
         clientRepository.deleteById(id);
     }
+
+    public void setClientUpperCase(ClientModel clientModel) {
+        clientModel.setName(clientModel.getName().toUpperCase());
+        clientModel.setCpf(clientModel.getCpf().toUpperCase());
+        clientModel.setPhone_number(clientModel.getPhone_number().toUpperCase());
+        clientModel.setEmail(clientModel.getEmail().toUpperCase());
+    }
 }

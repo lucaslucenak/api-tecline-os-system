@@ -33,4 +33,13 @@ public class AddressService {
     public void deleteAddressById(Long id) {
         addressRepository.deleteById(id);
     }
+
+    public void setAddressUpperCase(AddressModel addressModel) {
+        addressModel.setStreet(addressModel.getStreet().toUpperCase());
+        addressModel.setNumber(addressModel.getNumber().toUpperCase());
+        addressModel.setCep(addressModel.getCep().toUpperCase());
+        addressModel.setNeighborhood(addressModel.getNeighborhood().toUpperCase());
+        addressModel.setCity(addressModel.getCity().toUpperCase());
+        addressModel.setComplement(addressModel.getComplement().toUpperCase());
+    }
 }
