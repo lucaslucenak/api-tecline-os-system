@@ -28,6 +28,7 @@ public class OsController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     public OsModel saveOs(@RequestBody OsModel os) {
+        osService.setOsUpperCase(os);
         return osService.saveOs(os);
     }
 
@@ -62,6 +63,7 @@ public class OsController {
         osService.findOsById(id)
                 .map(os -> {
                     modelMapper.map(newOs, os);
+                    osService.setOsUpperCase(os);
                     osService.saveOs(os);
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "OS not found"));

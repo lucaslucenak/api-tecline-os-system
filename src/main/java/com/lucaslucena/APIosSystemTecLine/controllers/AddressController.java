@@ -28,6 +28,7 @@ public class AddressController {
     @PreAuthorize("hasRole('ADMIN')")
     public AddressModel saveAddress(@RequestBody AddressModel address) {
         addressService.setAddressUpperCase(address);
+        addressService.setAddressUpperCase(address);
         return addressService.saveAddress(address);
     }
 
@@ -63,6 +64,7 @@ public class AddressController {
         addressService.findAddressById(id)
                 .map(address -> {
                     modelMapper.map(newAddress, address);
+                    addressService.setAddressUpperCase(address);
                     addressService.setAddressUpperCase(address);
                     addressService.saveAddress(address);
                     return Void.TYPE;

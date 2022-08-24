@@ -31,6 +31,7 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     public ClientModel saveClient(@RequestBody ClientModel client) {
+        clientService.setClientUpperCase(client);
         return clientService.saveClient(client);
     }
 
@@ -60,11 +61,12 @@ public class ClientController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateClient(@PathVariable("id") Long id, @RequestBody ClientModel newClient) {
         clientService.findClientById(id)
                 .map(client -> {
                     modelMapper.map(newClient, client);
+                    clientService.setClientUpperCase(client);
                     clientService.saveClient(client);
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));

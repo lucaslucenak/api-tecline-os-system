@@ -27,6 +27,7 @@ public class TechnicianController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     public TechnicianModel saveTechnician(@RequestBody TechnicianModel technician) {
+        technicianService.setTechnicianUpperCase(technician);
         return technicianService.saveTechnician(technician);
     }
 
@@ -61,6 +62,7 @@ public class TechnicianController {
         technicianService.findTechnicianById(id)
                 .map(technician -> {
                     modelMapper.map(newTechnician, technician);
+                    technicianService.setTechnicianUpperCase(technician);
                     technicianService.saveTechnician(technician);
                     return Void.TYPE;
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Technician not found"));

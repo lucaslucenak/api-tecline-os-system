@@ -31,4 +31,8 @@ public class OsService {
     public void deleteOsById(Long id) {
         osRepository.deleteById(id);
     }
+
+    public void setOsUpperCase(OsModel osModel) {
+        osModel.setEquipment(osModel.getEquipment().toUpperCase());
+    }
 }

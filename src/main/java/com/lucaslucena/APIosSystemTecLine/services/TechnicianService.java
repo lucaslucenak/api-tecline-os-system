@@ -32,4 +32,11 @@ public class TechnicianService {
     public void deleteTechnicianById(Long id) {
         technicianRepository.deleteById(id);
     }
+
+    public void setTechnicianUpperCase(TechnicianModel technicianModel) {
+        technicianModel.setName(technicianModel.getName().toUpperCase());
+        technicianModel.setCpf(technicianModel.getCpf().toUpperCase());
+        technicianModel.setPhone_number(technicianModel.getPhone_number().toUpperCase());
+        technicianModel.setEmail(technicianModel.getEmail().toUpperCase());
+    }
 }
