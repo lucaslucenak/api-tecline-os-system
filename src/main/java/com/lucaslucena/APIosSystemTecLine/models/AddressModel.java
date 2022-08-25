@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.apache.tomcat.jni.Address;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "tb_address")
@@ -34,7 +36,6 @@ public class AddressModel {
     @Column
     private String complement;
 
-    @ManyToOne
-    @JoinColumn(name = "address")
-    private ClientModel client_model;
+    @OneToMany(mappedBy = "address")
+    private List<ClientModel> clients = new ArrayList<>();
 }

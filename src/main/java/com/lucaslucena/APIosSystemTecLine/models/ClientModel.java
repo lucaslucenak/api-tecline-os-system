@@ -30,6 +30,7 @@ public class ClientModel/* extends RepresentationModel<ClientModel>*/{
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "client_model")
-    private List<AddressModel> address = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "clients")
+    private AddressModel address;
 }
