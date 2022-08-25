@@ -16,10 +16,10 @@ insert into tb_user_has_role (id_user, id_role) values (2, 3);
 
 insert into tb_os(id_client, id_technician, equipment, estimated_value, payment_method, installments, payed_installments, observation) values (1, 1, 'Computador', 1250.30, 'PIX', 1, 1, 'Formatação completa');
 
-select * from tb_address;
+-- select * from tb_address;
 select * from tb_client tc ;
-select * from tb_os to2 ;
-select * from tb_role tr ;
-select * from tb_technician tt ;
-select * from tb_user tu ;
-select * from tb_user_has_role tuhr ;
+-- select * from tb_os to2 ;
+-- select * from tb_role tr ;
+-- select * from tb_technician tt ;
+-- select * from tb_user tu ;
+-- select * from tb_user_has_role tuhr ;

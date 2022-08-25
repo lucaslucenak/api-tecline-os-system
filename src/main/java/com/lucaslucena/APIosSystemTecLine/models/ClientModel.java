@@ -1,15 +1,18 @@
 package com.lucaslucena.APIosSystemTecLine.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.hateoas.RepresentationModel;
+import org.apache.tomcat.jni.Address;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "tb_client")
 @Getter
 @Setter
-public class ClientModel extends RepresentationModel<ClientModel> {
+public class ClientModel/* extends RepresentationModel<ClientModel>*/{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +30,6 @@ public class ClientModel extends RepresentationModel<ClientModel> {
     @Column
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "id_address")
-    private AddressModel address;
+    @OneToMany(mappedBy = "client_model")
+    private List<AddressModel> address = new ArrayList<>();
 }

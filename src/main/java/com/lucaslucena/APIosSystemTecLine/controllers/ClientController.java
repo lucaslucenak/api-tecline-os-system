@@ -6,7 +6,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,28 +28,24 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN')")
     public ClientModel saveClient(@RequestBody ClientModel client) {
         clientService.setClientUpperCase(client);
         return clientService.saveClient(client);
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ClientModel findClientById(@PathVariable("id") Long id) {
         return clientService.findClientById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public List<ClientModel> findAllClients() {
         return clientService.findAllClients();
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteClientById(@PathVariable("id") Long id) {
         clientService.findClientById(id)
                 .map(client -> {
@@ -61,7 +56,6 @@ public class ClientController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
     public void updateClient(@PathVariable("id") Long id, @RequestBody ClientModel newClient) {
         clientService.findClientById(id)
                 .map(client -> {

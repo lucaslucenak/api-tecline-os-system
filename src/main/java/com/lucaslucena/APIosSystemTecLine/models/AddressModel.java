@@ -2,6 +2,7 @@ package com.lucaslucena.APIosSystemTecLine.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.tomcat.jni.Address;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -32,4 +33,8 @@ public class AddressModel {
 
     @Column
     private String complement;
+
+    @ManyToOne
+    @JoinColumn(name = "address")
+    private ClientModel client_model;
 }

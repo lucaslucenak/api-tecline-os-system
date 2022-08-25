@@ -2,10 +2,11 @@ package com.lucaslucena.APIosSystemTecLine.controllers;
 
 import com.lucaslucena.APIosSystemTecLine.models.AddressModel;
 import com.lucaslucena.APIosSystemTecLine.services.AddressService;
+import com.lucaslucena.APIosSystemTecLine.util.exceptions.InvalidCepException;
+import com.lucaslucena.APIosSystemTecLine.util.validation.AddressValidator;
+import com.lucaslucena.APIosSystemTecLine.util.validation.Validator;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-//import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,23 +18,26 @@ public class AddressController {
 
     final AddressService addressService;
     final ModelMapper modelMapper;
+    final Validator<AddressModel> addressModelValidator;
 
-    public AddressController(AddressService addressService, ModelMapper modelMapper) {
+    public AddressController(AddressService addressService, ModelMapper modelMapper, AddressValidator addressModelValidator) {
         this.addressService = addressService;
         this.modelMapper = modelMapper;
+        this.addressModelValidator = addressModelValidator;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public AddressModel saveAddress(@RequestBody AddressModel address) {
-        addressService.setAddressUpperCase(address);
+        if (!addressModelValidator.isValid(address)) {
+            throw new InvalidCepException();
+        }
         addressService.setAddressUpperCase(address);
         return addressService.saveAddress(address);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public AddressModel findAddressById(@PathVariable("id") Long id) {
         return addressService.findAddressById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
@@ -41,14 +45,12 @@ public class AddressController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN')")
     public List<AddressModel> findAllAddress() {
         return addressService.findAllAddresses();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteAddressById(@PathVariable("id") Long id) {
         addressService.findAddressById(id)
                 .map(address -> {
@@ -59,7 +61,6 @@ public class AddressController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
     public void updateAddress(@PathVariable("id") Long id, @RequestBody AddressModel newAddress) {
         addressService.findAddressById(id)
                 .map(address -> {
