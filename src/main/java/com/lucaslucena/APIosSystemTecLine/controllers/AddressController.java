@@ -1,5 +1,6 @@
 package com.lucaslucena.APIosSystemTecLine.controllers;
 
+import com.lucaslucena.APIosSystemTecLine.dto.AddressDto;
 import com.lucaslucena.APIosSystemTecLine.models.AddressModel;
 import com.lucaslucena.APIosSystemTecLine.services.AddressService;
 import com.lucaslucena.APIosSystemTecLine.util.exceptions.InvalidCepException;
@@ -29,12 +30,14 @@ public class AddressController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
 //    @PreAuthorize("hasRole('ADMIN')")
-    public AddressModel saveAddress(@RequestBody AddressModel address) {
-        if (!addressModelValidator.isValid(address)) {
-            throw new InvalidCepException();
-        }
-        addressService.setAddressUpperCase(address);
-        return addressService.saveAddress(address);
+    public AddressDto saveAddress(@RequestBody AddressDto addressDto) {
+//        if (!addressModelValidator.isValid(address)) {
+//            throw new InvalidCepException();
+//        }
+//        addressDto = addressService.saveAddress(addressDto);
+//        addressService.setAddressUpperCase(address);
+        return addressService.saveAddress(addressDto);
+//        return addressService.saveAddress(address);
     }
 
     @GetMapping("/{id}")
@@ -59,16 +62,16 @@ public class AddressController {
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateAddress(@PathVariable("id") Long id, @RequestBody AddressModel newAddress) {
-        addressService.findAddressById(id)
-                .map(address -> {
-                    modelMapper.map(newAddress, address);
-                    addressService.setAddressUpperCase(address);
-                    addressService.setAddressUpperCase(address);
-                    addressService.saveAddress(address);
-                    return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
-    }
+//    @PutMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void updateAddress(@PathVariable("id") Long id, @RequestBody AddressModel newAddress) {
+//        addressService.findAddressById(id)
+//                .map(address -> {
+//                    modelMapper.map(newAddress, address);
+//                    addressService.setAddressUpperCase(address);
+//                    addressService.setAddressUpperCase(address);
+//                    addressService.saveAddress(address);
+//                    return Void.TYPE;
+//                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
+//    }
 }

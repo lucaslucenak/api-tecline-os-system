@@ -14,6 +14,23 @@ import java.util.UUID;
 @Setter
 public class AddressModel {
 
+    public AddressModel(Long id, String street, String number, String cep, String neighborhood, String city, String complement) {
+        this.id = id;
+        this.street = street;
+        this.number = number;
+        this.cep = cep;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.complement = complement;
+    }
+
+    public AddressModel(Long id) {
+        this.id = id;
+    }
+
+    public AddressModel() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +53,7 @@ public class AddressModel {
     @Column
     private String complement;
 
-    @OneToMany(mappedBy = "address")
-    private List<ClientModel> clients = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")/*(mappedBy = "address")*/
+//    @JoinColumn(name = "address")
+    private List<ClientModel> clients;
 }

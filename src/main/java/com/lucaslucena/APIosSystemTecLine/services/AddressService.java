@@ -1,7 +1,9 @@
 package com.lucaslucena.APIosSystemTecLine.services;
 
+import com.lucaslucena.APIosSystemTecLine.dto.AddressDto;
 import com.lucaslucena.APIosSystemTecLine.models.AddressModel;
 import com.lucaslucena.APIosSystemTecLine.repositories.AddressRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,11 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public AddressModel saveAddress(AddressModel address) {
-        return addressRepository.save(address);
+    public AddressDto saveAddress(AddressDto addressDto) {
+        AddressModel addressModel = new AddressModel();
+        BeanUtils.copyProperties(addressModel, addressDto);
+        addressModel = addressRepository.save(addressModel);
+        return new AddressDto(addressModel);
     }
 
     public List<AddressModel> findAllAddresses() {

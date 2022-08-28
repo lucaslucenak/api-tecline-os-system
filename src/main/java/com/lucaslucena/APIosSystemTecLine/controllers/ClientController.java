@@ -1,5 +1,6 @@
 package com.lucaslucena.APIosSystemTecLine.controllers;
 
+import com.lucaslucena.APIosSystemTecLine.dto.ClientDto;
 import com.lucaslucena.APIosSystemTecLine.models.ClientModel;
 import com.lucaslucena.APIosSystemTecLine.services.ClientService;
 import org.modelmapper.ModelMapper;
@@ -28,9 +29,10 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClientModel saveClient(@RequestBody ClientModel client) {
-        clientService.setClientUpperCase(client);
-        return clientService.saveClient(client);
+    public ClientDto saveClient(@RequestBody ClientDto clientDto) {
+//        clientService.setClientUpperCase(client);
+//        return clientService.saveClient(client);
+        return clientService.saveClient(clientDto);
     }
 
     @GetMapping("{id}")
@@ -40,7 +42,7 @@ public class ClientController {
     }
 
     @GetMapping
-    public List<ClientModel> findAllClients() {
+    public List<ClientDto> findAllClients() {
         return clientService.findAllClients();
     }
 
@@ -54,17 +56,17 @@ public class ClientController {
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
     }
 
-    @PutMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateClient(@PathVariable("id") Long id, @RequestBody ClientModel newClient) {
-        clientService.findClientById(id)
-                .map(client -> {
-                    modelMapper.map(newClient, client);
-                    clientService.setClientUpperCase(client);
-                    clientService.saveClient(client);
-                    return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
-    }
+//    @PutMapping("{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void updateClient(@PathVariable("id") Long id, @RequestBody ClientModel newClient) {
+//        clientService.findClientById(id)
+//                .map(client -> {
+//                    modelMapper.map(newClient, client);
+//                    clientService.setClientUpperCase(client);
+//                    clientService.saveClient(client);
+//                    return Void.TYPE;
+//                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
+//    }
 
 
 }
